@@ -44,6 +44,7 @@ class _LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Form(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(
           children: [
             TextFormField(
@@ -54,6 +55,12 @@ class _LoginForm extends StatelessWidget {
                 labelText: "Email",
                 prefixIcon: Icons.alternate_email_sharp,
               ),
+              validator: (value) {
+                String _pattern =
+                    r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                RegExp _regExp = RegExp(_pattern);
+                return _regExp.hasMatch(value ?? '') ? null : 'Invalid email';
+              },
             ),
             const SizedBox(height: 30),
             TextFormField(
@@ -65,6 +72,11 @@ class _LoginForm extends StatelessWidget {
                 labelText: "Password",
                 prefixIcon: Icons.lock_outline,
               ),
+              validator: (value) {
+                return value != null && value.length >= 6
+                    ? null
+                    : 'Password requires at least 6 characters';
+              },
             ),
             const SizedBox(height: 30),
             MaterialButton(
