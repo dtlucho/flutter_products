@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_products/providers/login_form_provider.dart';
 import 'package:flutter_products/ui/form_input_decoration.dart';
 import 'package:flutter_products/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -19,7 +21,10 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(height: 10),
                     Text("Login", style: Theme.of(context).textTheme.headline4),
                     const SizedBox(height: 30),
-                    const _LoginForm(),
+                    ChangeNotifierProvider(
+                      create: (_) => LoginFormProvider(),
+                      child: const _LoginForm(),
+                    ),
                   ],
                 ),
               ),
@@ -42,8 +47,11 @@ class _LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loginFormProvider = Provider.of<LoginFormProvider>(context);
+
     return Container(
       child: Form(
+        key: loginFormProvider.formKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(
           children: [
@@ -55,6 +63,7 @@ class _LoginForm extends StatelessWidget {
                 labelText: "Email",
                 prefixIcon: Icons.alternate_email_sharp,
               ),
+              onChanged: (value) => loginFormProvider.email = value,
               validator: (value) {
                 String _pattern =
                     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -72,6 +81,7 @@ class _LoginForm extends StatelessWidget {
                 labelText: "Password",
                 prefixIcon: Icons.lock_outline,
               ),
+              onChanged: (value) => loginFormProvider.password = value,
               validator: (value) {
                 return value != null && value.length >= 6
                     ? null
@@ -96,7 +106,10 @@ class _LoginForm extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                if (!loginFormProvider.isValid()) return;
+                Navigator.pushReplacementNamed(context, 'home');
+              },
             ),
           ],
         ),
