@@ -54,6 +54,18 @@ class _LoginForm extends StatelessWidget {
                 prefixIcon: Icons.alternate_email_sharp,
               ),
             ),
+            const SizedBox(height: 30),
+            TextFormField(
+              autocorrect: false,
+              obscureText: true,
+              keyboardType: TextInputType.visiblePassword,
+              decoration: FormInputDecoration.authInputDecoration(
+                hintText: "*****",
+                labelText: "Password",
+                prefixIcon: Icons.lock_outline,
+              ),
+            ),
+            const SizedBox(height: 30),
           ],
         ),
       ),
