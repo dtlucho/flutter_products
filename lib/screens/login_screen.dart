@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_products/ui/form_input_decoration.dart';
 import 'package:flutter_products/widgets/widgets.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -18,7 +19,7 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(height: 10),
                     Text("Login", style: Theme.of(context).textTheme.headline4),
                     const SizedBox(height: 30),
-                    _LoginForm(),
+                    const _LoginForm(),
                   ],
                 ),
               ),
@@ -47,27 +48,10 @@ class _LoginForm extends StatelessWidget {
             TextFormField(
               autocorrect: false,
               keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.deepPurple,
-                  ),
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.deepPurple,
-                    width: 2,
-                  ),
-                ),
+              decoration: FormInputDecoration.authInputDecoration(
                 hintText: "john.doe@email.com",
                 labelText: "Email",
-                labelStyle: TextStyle(
-                  color: Colors.grey,
-                ),
-                prefixIcon: Icon(
-                  Icons.alternate_email_sharp,
-                  color: Colors.deepPurple,
-                ),
+                prefixIcon: Icons.alternate_email_sharp,
               ),
             ),
           ],
