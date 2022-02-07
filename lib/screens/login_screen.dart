@@ -28,6 +28,7 @@ class LoginScreen extends StatelessWidget {
                 "Create a new account",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
+              const SizedBox(height: 50.0),
             ],
           ),
         ),
@@ -66,6 +67,25 @@ class _LoginForm extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
+            MaterialButton(
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              disabledColor: Colors.grey,
+              color: Colors.deepPurple,
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 80.0,
+                  vertical: 15.0,
+                ),
+                child: const Text(
+                  'Log in',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              onPressed: () {},
+            ),
           ],
         ),
       ),
