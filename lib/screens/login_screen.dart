@@ -101,15 +101,23 @@ class _LoginForm extends StatelessWidget {
                   horizontal: 80.0,
                   vertical: 15.0,
                 ),
-                child: const Text(
-                  'Log in',
-                  style: TextStyle(color: Colors.white),
+                child: Text(
+                  loginFormProvider.isLoading ? 'Loading' : 'Log in',
+                  style: const TextStyle(color: Colors.white),
                 ),
               ),
-              onPressed: () {
-                if (!loginFormProvider.isValid()) return;
-                Navigator.pushReplacementNamed(context, 'home');
-              },
+              onPressed: loginFormProvider.isLoading
+                  ? null
+                  : () async {
+                      FocusScope.of(context).unfocus();
+                      if (!loginFormProvider.isValid()) return;
+
+                      loginFormProvider.isLoading = true;
+                      await Future.delayed(const Duration(seconds: 3));
+                      loginFormProvider.isLoading = false;
+
+                      Navigator.pushReplacementNamed(context, 'home');
+                    },
             ),
           ],
         ),
